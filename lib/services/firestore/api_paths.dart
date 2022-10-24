@@ -5,4 +5,7 @@ class ApiPaths {
 
   /// Get document for a product with given id
   static String product(String productId) => "products/$productId";
+
+  /// Get document for a shopping cart with given id
+  static String cart(String cartId) => "shopping_carts/$cartId";
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../model/shoppipng_cart.dart';
 import '../../model/product.dart';
 import '../../model/shop.dart';
 import '../../services/repository.dart';
@@ -18,11 +19,16 @@ class FirestoreRepository implements Repository {
   Stream<Product?> getProductStream(String productId) =>
       _getDocumentStream<Product>(ApiPaths.product(productId), Product.fromMap);
 
+  @override
+  Stream<ShoppingCart?> getShoppingCartStream(String cartId) =>
+      _getDocumentStream(ApiPaths.cart(cartId), ShoppingCart.fromMap);
+
   /// Get a stream for a document stored at a specific path.
   /// Automatically convert each snapshot to an object of corresponding type
   /// Use the provided [converter] function for the conversion
   Stream<T?> _getDocumentStream<T>(
       String path, T Function(Map<String, dynamic>) converter) {
+    print("Get document at $path");
     // Get snapshot stream first
     final Stream<DocumentSnapshot<Map<String, dynamic>>> snapshots =
         store.doc(path).snapshots();
