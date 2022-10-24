@@ -8,4 +8,7 @@ class ApiPaths {
 
   /// Get document for a shopping cart with given id
   static String cart(String cartId) => "shopping_carts/$cartId";
+
+  /// Get collection for all items in a shopping cart with given id
+  static String cartItems(String cartId) => "shopping_carts/$cartId/items";
 }

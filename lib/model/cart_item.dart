@@ -5,9 +5,25 @@ class CartItem {
 
   final int id;
   final String name;
-  final double price;
+  final num price;
   final int quantity;
   final String? imageUrl;
+
+  static CartItem fromMap(Map<String, dynamic> data) {
+    assert(data.containsKey("name"), "Missing name property for a cart item");
+    assert(data.containsKey("unitPrice"),
+        "Missing price property for a cart item");
+    assert(data.containsKey("imageUrl"),
+        "Missing imageUrl property for a product");
+    assert(data.containsKey("quantity"),
+        "Missing quantity property for a cart item");
+    return CartItem(
+      data["name"],
+      data["unitPrice"],
+      data["quantity"],
+      data["imageUrl"],
+    );
+  }
 
   /// Create a shopping cart item
   /// name: the name of the product
