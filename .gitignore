@@ -23,3 +23,7 @@ doc/api/
 .idea/
 
 exercise_e8.iml
+
+.flutter-plugins
+
+.flutter-plugins-dependencies

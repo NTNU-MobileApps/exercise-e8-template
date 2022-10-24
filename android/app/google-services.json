@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "970341220498",
+    "project_id": "mobile-e8",
+    "storage_bucket": "mobile-e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970341220498:android:69be8b3dd2bde7c8c2a64b",
+        "android_client_info": {
+          "package_name": "no.ntnu.exercise_e8"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970341220498-3erd8ivs4artdp790qd7lgu5kdt66241.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQIt_COH2m-DKf5ke6tciCUsgJiMmxf9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970341220498-3erd8ivs4artdp790qd7lgu5kdt66241.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "970341220498-emriinru775ku7g3ojtjist89k08jm1m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "no.ntnu.exerciseE7"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
