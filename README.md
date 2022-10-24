@@ -63,15 +63,15 @@ products:
   - 14:
       name:  Sneakers
       price: 25
-      image_url: ...
+      imageUrl: ...
   - 22:
       name: Blue Jeans
       price: 30
-      image_url: ...
+      imageUrl: ...
   - 72:
       name: Green T-shirt
       price: 17.2
-      image_url:
+      imageUrl:
 shopping_carts:
   - user_42:
       total_price: 80
@@ -80,12 +80,12 @@ shopping_carts:
              name: Sneakers
              unit_price: 25
              quantity: 2
-             image_url: ...
+             imageUrl: ...
         - 2: 
              name: Blule Jeans
              unit_price: 30
              quantity: 1
-             image_url: ...
+             imageUrl: ...
 ```
 
 Your task is to read data from the database and display it in the user interface of the app:
