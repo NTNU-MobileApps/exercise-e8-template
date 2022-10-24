@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../model/shop.dart';
+import '../services/repository.dart';
 import 'shopping_cart_page.dart';
 
 /// Represents the product page
 class ProductPage extends StatelessWidget {
+  static const String defaultShopName = "1";
+
   const ProductPage({Key? key}) : super(key: key);
   static const addToCartKey = Key("add_to_cart_button");
   static const openCartKey = Key("open_cart_button");
@@ -12,8 +17,7 @@ class ProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // TODO - load the shop name from Cloud Firestore
-        title: const Text("M&H Molde"),
+        title: _buildShopTitle(context),
         actions: [_buildShoppingCartButton(context)],
       ),
       backgroundColor: Colors.white,
@@ -95,5 +99,24 @@ class ProductPage extends StatelessWidget {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => const ShoppingCartPage(),
     ));
+  }
+
+  /// Build widget for displaying shop title
+  Widget _buildShopTitle(BuildContext context) {
+    final Repository repository = Provider.of<Repository>(context);
+    return StreamBuilder<Shop?>(
+      stream: repository.getShopStream(defaultShopName),
+      builder: (BuildContext context, AsyncSnapshot<Shop?> snapshot) {
+        if (snapshot.connectionState != ConnectionState.active) {
+          return const Text("Loading...");
+        } else if (snapshot.hasError) {
+          return Text("Error: ${snapshot.error}");
+        } else if (!snapshot.hasData || snapshot.data == null) {
+          return const Text("Loading...");
+        }
+        final Shop shop = snapshot.data!;
+        return Text(shop.title);
+      },
+    );
   }
 }
