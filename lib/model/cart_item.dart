@@ -14,7 +14,7 @@ class CartItem {
     assert(data.containsKey("unitPrice"),
         "Missing price property for a cart item");
     assert(data.containsKey("imageUrl"),
-        "Missing imageUrl property for a product");
+        "Missing imageUrl property for a cart item");
     assert(data.containsKey("quantity"),
         "Missing quantity property for a cart item");
     return CartItem(
