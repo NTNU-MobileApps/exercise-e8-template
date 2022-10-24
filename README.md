@@ -82,7 +82,7 @@ shopping_carts:
              quantity: 2
              imageUrl: ...
         - 2: 
-             name: Blule Jeans
+             name: Blue Jeans
              unitPrice: 30
              quantity: 1
              imageUrl: ...
