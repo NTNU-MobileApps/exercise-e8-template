@@ -74,7 +74,7 @@ products:
       imageUrl:
 shopping_carts:
   - user_42:
-      total_price: 80
+      totalPrice: 80
       items:
         - 1:
              name: Sneakers
@@ -95,8 +95,8 @@ Your task is to read data from the database and display it in the user interface
 2. Display data for a product on the product page: title, image, price. You can choose any of the
    products in the database.
 3. Display shopping cart information (there is only one cart, for `user_42`):
-    1. All the shopping cart items - the product name, unit_price and quantity
-    2. The total price of all items in the cart
+    1. The total price of all items in the cart
+    2. All the shopping cart items - the product name, unit_price and quantity
 
 Hint: you probably want to define Streams for different nodes in the data-tree (different paths) and
 connect those to the UI, using `StreamBuilder` widget.
