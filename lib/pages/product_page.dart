@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../model/product.dart';
 import '../model/shop.dart';
 import '../services/repository.dart';
 import 'shopping_cart_page.dart';
@@ -8,6 +9,7 @@ import 'shopping_cart_page.dart';
 /// Represents the product page
 class ProductPage extends StatelessWidget {
   static const String defaultShopName = "1";
+  static const String productId = "14";
 
   const ProductPage({Key? key}) : super(key: key);
   static const addToCartKey = Key("add_to_cart_button");
@@ -24,12 +26,7 @@ class ProductPage extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _buildProductTitle(),
-            _buildImage(),
-            _buildPriceText(),
-            _buildButton()
-          ],
+          children: <Widget>[_buildProductInfo(context), _buildButton()],
         ),
       ),
     );
@@ -49,37 +46,58 @@ class ProductPage extends StatelessWidget {
     );
   }
 
+  Widget _buildProductInfo(BuildContext context) {
+    final repository = Provider.of<Repository>(context, listen: false);
+    return StreamBuilder<Product?>(
+        stream: repository.getProductStream(productId),
+        builder: (context, snapshot) {
+          // Check if we got something other than real data...
+          if (snapshot.connectionState != ConnectionState.active) {
+            return const Text("Loading...");
+          } else if (snapshot.hasError) {
+            return Text("Error: ${snapshot.error}");
+          } else if (!snapshot.hasData || snapshot.data == null) {
+            return const Text("Loading...");
+          }
+
+          // If we get so far, this means we got data!
+          final Product product = snapshot.data!;
+
+          return Column(
+            children: [
+              _buildProductTitle(product.name),
+              _buildProductImage(product.imageUrl),
+              _buildPriceText(product.price),
+            ],
+          );
+        });
+  }
+
   /// Build the title for the product
-  Widget _buildProductTitle() {
-    return const Padding(
-      padding: EdgeInsets.only(bottom: 8),
+  Widget _buildProductTitle(String productName) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
       child: Text(
-        // TODO - here we want to have product title from Cloud Firestore
-        "A nice sweater",
-        style: TextStyle(fontSize: 24),
+        productName,
+        style: const TextStyle(fontSize: 24),
       ),
     );
   }
 
   /// Build the price text for the product
-  Widget _buildPriceText() {
-    return const Padding(
-      padding: EdgeInsets.only(top: 8, bottom: 8),
+  Widget _buildPriceText(num price) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, bottom: 8),
       child: Text(
-        // TODO - here we want to have product price from Cloud Firestore
-        "666 Kr",
-        style: TextStyle(fontSize: 16),
+        "$price Kr",
+        style: const TextStyle(fontSize: 16),
       ),
     );
   }
 
   /// Build the product image
-  Widget _buildImage() {
-    // TODO - here we want to use image URL from Cloud Firestore
-    return Image.network(
-      "http://129.241.152.12/sweater.jpg",
-      height: 200,
-    );
+  Widget _buildProductImage(String imageUrl) {
+    return Image.network(imageUrl, height: 200);
   }
 
   /// Build the "Add to cart" button
@@ -103,7 +121,7 @@ class ProductPage extends StatelessWidget {
 
   /// Build widget for displaying shop title
   Widget _buildShopTitle(BuildContext context) {
-    final Repository repository = Provider.of<Repository>(context);
+    final repository = Provider.of<Repository>(context, listen: false);
     return StreamBuilder<Shop?>(
       stream: repository.getShopStream(defaultShopName),
       builder: (BuildContext context, AsyncSnapshot<Shop?> snapshot) {

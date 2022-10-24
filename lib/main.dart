@@ -1,5 +1,5 @@
-import 'package:exercise_e8/firebase_options.dart';
-import 'package:exercise_e8/services/repository.dart';
+import 'firebase_options.dart';
+import 'services/repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
