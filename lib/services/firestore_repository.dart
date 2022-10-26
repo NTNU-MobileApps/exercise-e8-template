@@ -3,18 +3,21 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exercise_e8/model/shop.dart';
 
+import '../model/product.dart';
 import 'api_paths.dart';
-import 'repository.dart';
 
 /// Provides access to the Cloud Firestore database
-class FirestoreRepository implements Repository {
+class FirestoreRepository {
   /// Singleton instance of the repository
   static final instance = FirestoreRepository();
 
   /// Retrieve one shop with specific Id
-  @override
   Stream<Shop?> getShop(int shopId) =>
       _getDocumentStream(ApiPaths.shop(shopId), Shop.fromMap);
+
+  /// Retrieve one product with specific Id
+  Stream<Product?> getProduct(int id) =>
+      _getDocumentStream(ApiPaths.product(id), Product.fromMap);
 
   /// A Generic method for getting a document stream and converting the
   /// documents to usable objects

@@ -1,5 +1,6 @@
 import 'package:exercise_e8/services/firestore_repository.dart';
 import 'package:flutter/material.dart';
+import '../model/product.dart';
 
 import '../model/shop.dart';
 import 'shopping_cart_page.dart';
