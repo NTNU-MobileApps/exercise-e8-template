@@ -1,5 +1,7 @@
+import 'package:exercise_e8/services/firestore_repository.dart';
 import 'package:flutter/material.dart';
 
+import '../model/shop.dart';
 import 'shopping_cart_page.dart';
 
 /// Represents the product page
@@ -12,8 +14,7 @@ class ProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // TODO - load the shop name from Cloud Firestore
-        title: const Text("M&H Molde"),
+        title: _buildAppBarTitle(),
         actions: [_buildShoppingCartButton(context)],
       ),
       backgroundColor: Colors.white,
@@ -29,6 +30,27 @@ class ProductPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /// Build the title to display inside the AppBar
+  Widget _buildAppBarTitle() {
+    final repository = FirestoreRepository.instance;
+    return StreamBuilder<Shop?>(
+        stream: repository.getShop(1),
+        builder: (context, snapshot) {
+          String title;
+          if (snapshot.connectionState != ConnectionState.active) {
+            title = "Loading...";
+          } else if (snapshot.hasError) {
+            title = "Error: ${snapshot.error}";
+          } else if (!snapshot.hasData) {
+            title = "No data...";
+          } else {
+            final Shop shop = snapshot.data!;
+            title = shop.name;
+          }
+          return Text(title);
+        });
   }
 
   /// Build the action-button to be shown in the action bar.
